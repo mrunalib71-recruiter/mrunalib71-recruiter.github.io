@@ -1,0 +1,500 @@
+<!DOCTYPE html>
+<html lang="en-CA">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Shortlist — Resume, LinkedIn &amp; Interview Prep for Engineers and IT Professionals in Canada</title>
+<meta name="description" content="Eight years on the hiring side. I help engineers, IT and cybersecurity professionals in Canada fix the resume that keeps getting skipped.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,400;12..96,600;12..96,800&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --ink:#17262B;
+    --ink-soft:#42565C;
+    --paper:#F4F6F5;
+    --paper-deep:#E6EAE8;
+    --mark:#FFE24D;
+    --mark-deep:#F5C400;
+    --pine:#1F5F52;
+    --rule:#C9D2CF;
+    --white:#FFFFFF;
+
+    --display:"Bricolage Grotesque","Helvetica Neue",Arial,sans-serif;
+    --body:"Inter","Helvetica Neue",Arial,sans-serif;
+    --mono:"JetBrains Mono","SFMono-Regular",Consolas,monospace;
+
+    --pad:clamp(1.25rem,5vw,5rem);
+  }
+
+  *{box-sizing:border-box;margin:0;padding:0}
+  html{scroll-behavior:smooth}
+  body{
+    background:var(--paper);
+    color:var(--ink);
+    font-family:var(--body);
+    font-size:17px;
+    line-height:1.6;
+    -webkit-font-smoothing:antialiased;
+  }
+  a{color:inherit}
+  ::selection{background:var(--mark);color:var(--ink)}
+
+  .wrap{max-width:1180px;margin:0 auto;padding-left:var(--pad);padding-right:var(--pad)}
+
+  .label{
+    font-family:var(--mono);
+    font-size:.7rem;
+    letter-spacing:.14em;
+    text-transform:uppercase;
+    color:var(--ink-soft);
+  }
+
+  /* ---------- highlighter device ---------- */
+  .mark{position:relative;display:inline-block;z-index:0}
+  .mark::before{
+    content:"";position:absolute;left:-.12em;right:-.12em;bottom:.04em;height:.62em;
+    background:var(--mark);z-index:-1;
+    transform:scaleX(0);transform-origin:left center;
+    animation:sweep .7s cubic-bezier(.6,0,.2,1) .35s forwards;
+    border-radius:2px;
+  }
+  .mark.m2::before{animation-delay:.85s}
+  @keyframes sweep{to{transform:scaleX(1)}}
+
+  /* ---------- nav ---------- */
+  header{
+    position:sticky;top:0;z-index:50;
+    background:rgba(244,246,245,.88);
+    backdrop-filter:blur(10px);
+    border-bottom:1px solid var(--rule);
+  }
+  .nav{display:flex;align-items:center;justify-content:space-between;gap:1rem;padding-top:.9rem;padding-bottom:.9rem}
+  .wordmark{font-family:var(--display);font-weight:800;font-size:1.25rem;letter-spacing:-.02em;text-decoration:none}
+  .wordmark span{color:var(--mark-deep)}
+  .nav-links{display:flex;gap:1.6rem;align-items:center}
+  .nav-links a{font-size:.9rem;text-decoration:none;color:var(--ink-soft);font-weight:500}
+  .nav-links a:hover{color:var(--ink)}
+  @media(max-width:760px){.nav-links a:not(.btn){display:none}}
+
+  .btn{
+    display:inline-block;background:var(--ink);color:var(--paper);
+    padding:.7rem 1.25rem;border-radius:100px;text-decoration:none;
+    font-weight:600;font-size:.92rem;line-height:1;
+    border:1px solid var(--ink);transition:background .18s,color .18s,transform .18s;
+  }
+  .btn:hover{background:var(--pine);border-color:var(--pine);transform:translateY(-1px)}
+  .btn-mark{background:var(--mark);color:var(--ink);border-color:var(--mark-deep)}
+  .btn-mark:hover{background:var(--mark-deep);color:var(--ink);border-color:var(--mark-deep)}
+  .btn-ghost{background:transparent;color:var(--ink)}
+  .btn-ghost:hover{background:var(--ink);color:var(--paper)}
+  a:focus-visible,button:focus-visible{outline:3px solid var(--pine);outline-offset:3px;border-radius:4px}
+
+  /* ---------- hero ---------- */
+  .hero{padding-top:clamp(3rem,7vw,6rem);padding-bottom:clamp(3rem,6vw,5rem)}
+  .hero-grid{display:grid;grid-template-columns:1.05fr .95fr;gap:clamp(2rem,5vw,4.5rem);align-items:center}
+  @media(max-width:900px){.hero-grid{grid-template-columns:1fr;gap:2.5rem}}
+
+  h1{
+    font-family:var(--display);
+    font-weight:800;
+    font-size:clamp(2.4rem,5.6vw,4.1rem);
+    line-height:1.02;
+    letter-spacing:-.035em;
+    margin:1rem 0 1.25rem;
+  }
+  .hero p.lede{font-size:1.08rem;color:var(--ink-soft);max-width:34rem;margin-bottom:1.9rem}
+  .hero-cta{display:flex;flex-wrap:wrap;gap:.75rem;align-items:center}
+  .hero-note{font-family:var(--mono);font-size:.72rem;color:var(--ink-soft);margin-top:1.1rem}
+
+  /* ---------- signature: the markup card ---------- */
+  .desk{
+    background:var(--white);
+    border:1px solid var(--rule);
+    border-radius:6px;
+    box-shadow:0 1px 0 var(--paper-deep),0 18px 40px -28px rgba(23,38,43,.5);
+    padding:1.5rem 1.5rem 1.25rem;
+  }
+  .desk-top{display:flex;justify-content:space-between;align-items:baseline;border-bottom:1px solid var(--rule);padding-bottom:.75rem;margin-bottom:1.15rem}
+  .bullet-block{margin-bottom:1.15rem}
+  .bullet-tag{font-family:var(--mono);font-size:.68rem;letter-spacing:.12em;text-transform:uppercase;display:block;margin-bottom:.4rem}
+  .tag-before{color:#9AA6A3}
+  .tag-after{color:var(--pine)}
+  .bullet-before{color:#8D9895;text-decoration:line-through;text-decoration-thickness:1px;font-size:.95rem;line-height:1.5}
+  .bullet-after{font-size:.98rem;line-height:1.55;font-weight:500}
+  .bullet-after em{font-style:normal;background:var(--mark);padding:0 .12em;border-radius:2px}
+  .desk-foot{display:flex;justify-content:space-between;align-items:center;gap:1rem;border-top:1px solid var(--rule);padding-top:.9rem}
+  .desk-why{font-family:var(--mono);font-size:.72rem;color:var(--ink-soft)}
+  .cycle{
+    font-family:var(--mono);font-size:.72rem;letter-spacing:.08em;text-transform:uppercase;
+    background:none;border:1px solid var(--ink);color:var(--ink);
+    padding:.5rem .85rem;border-radius:100px;cursor:pointer;white-space:nowrap;
+    transition:background .18s,color .18s;
+  }
+  .cycle:hover{background:var(--ink);color:var(--paper)}
+  .fade{animation:fade .35s ease}
+  @keyframes fade{from{opacity:0;transform:translateY(4px)}to{opacity:1;transform:none}}
+
+  /* ---------- section frame ---------- */
+  section{padding-top:clamp(3rem,6vw,5.5rem);padding-bottom:clamp(3rem,6vw,5.5rem)}
+  .band{background:var(--ink);color:var(--paper)}
+  .band .label{color:#93A5A2}
+  h2{
+    font-family:var(--display);font-weight:800;
+    font-size:clamp(1.75rem,3.4vw,2.6rem);
+    line-height:1.08;letter-spacing:-.03em;margin:.7rem 0 1rem;
+  }
+  .sec-lede{color:var(--ink-soft);max-width:38rem;margin-bottom:2.5rem}
+  .band .sec-lede{color:#AEBEBB}
+
+  /* ---------- who ---------- */
+  .who-list{display:grid;grid-template-columns:repeat(auto-fit,minmax(230px,1fr));gap:0;border-top:1px solid rgba(255,255,255,.16)}
+  .who-list div{padding:1.25rem 1.25rem 1.25rem 0;border-bottom:1px solid rgba(255,255,255,.16)}
+  .who-list strong{display:block;font-family:var(--display);font-weight:600;font-size:1.05rem;margin-bottom:.25rem}
+  .who-list p{color:#AEBEBB;font-size:.92rem;line-height:1.5}
+
+  /* ---------- pricing ---------- */
+  .cards{display:grid;grid-template-columns:repeat(3,1fr);gap:1.25rem}
+  @media(max-width:880px){.cards{grid-template-columns:1fr}}
+  .card{
+    background:var(--white);border:1px solid var(--rule);border-radius:6px;
+    padding:1.6rem 1.5rem;display:flex;flex-direction:column;
+    transition:transform .2s,box-shadow .2s;
+  }
+  .card:hover{transform:translateY(-3px);box-shadow:0 20px 40px -30px rgba(23,38,43,.55)}
+  .card.featured{border:1px solid var(--ink);box-shadow:6px 6px 0 var(--mark)}
+  .card h3{font-family:var(--display);font-weight:700;font-size:1.3rem;letter-spacing:-.02em;margin-bottom:.3rem}
+  .price{font-family:var(--mono);font-size:1.7rem;font-weight:500;margin:.6rem 0 1.1rem;letter-spacing:-.02em}
+  .price small{font-size:.72rem;color:var(--ink-soft);letter-spacing:.06em}
+  .card ul{list-style:none;margin-bottom:1.5rem}
+  .card li{position:relative;padding-left:1.35rem;margin-bottom:.55rem;font-size:.95rem;line-height:1.45}
+  .card li::before{content:"";position:absolute;left:0;top:.55em;width:.7rem;height:.34rem;background:var(--mark);border-radius:1px}
+  .card .btn{margin-top:auto;text-align:center}
+  .pill{
+    display:inline-block;font-family:var(--mono);font-size:.65rem;letter-spacing:.12em;text-transform:uppercase;
+    background:var(--mark);padding:.25rem .55rem;border-radius:3px;margin-bottom:.9rem;
+  }
+  .addon{margin-top:1.5rem;font-size:.95rem;color:var(--ink-soft)}
+  .addon strong{color:var(--ink)}
+
+  /* ---------- process ---------- */
+  .steps{display:grid;grid-template-columns:repeat(4,1fr);gap:1.5rem;counter-reset:s}
+  @media(max-width:880px){.steps{grid-template-columns:1fr 1fr}}
+  @media(max-width:520px){.steps{grid-template-columns:1fr}}
+  .step{border-top:2px solid var(--ink);padding-top:1rem}
+  .step::before{
+    counter-increment:s;content:counter(s,decimal-leading-zero);
+    font-family:var(--mono);font-size:.72rem;color:var(--mark-deep);display:block;margin-bottom:.5rem;letter-spacing:.1em;
+  }
+  .step h4{font-family:var(--display);font-weight:600;font-size:1.08rem;margin-bottom:.35rem}
+  .step p{font-size:.93rem;color:var(--ink-soft);line-height:1.5}
+
+  /* ---------- about ---------- */
+  .about-grid{display:grid;grid-template-columns:1fr 1.4fr;gap:clamp(2rem,5vw,4rem);align-items:start}
+  @media(max-width:880px){.about-grid{grid-template-columns:1fr}}
+  .facts{border-top:1px solid var(--rule)}
+  .facts div{display:flex;justify-content:space-between;gap:1rem;padding:.8rem 0;border-bottom:1px solid var(--rule);font-size:.9rem}
+  .facts dt{font-family:var(--mono);font-size:.72rem;letter-spacing:.1em;text-transform:uppercase;color:var(--ink-soft)}
+  .facts dd{text-align:right;font-weight:500}
+  .about-body p{margin-bottom:1rem;color:var(--ink-soft)}
+  .about-body p:first-child{color:var(--ink);font-size:1.12rem}
+
+  /* ---------- proof placeholder ---------- */
+  .quotes{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:1.25rem}
+  .quote{background:var(--white);border:1px solid var(--rule);border-left:4px solid var(--mark);border-radius:4px;padding:1.4rem}
+  .quote p{font-size:.98rem;line-height:1.55;margin-bottom:.9rem}
+  .quote cite{font-style:normal;font-family:var(--mono);font-size:.72rem;letter-spacing:.06em;color:var(--ink-soft)}
+
+  /* ---------- cta ---------- */
+  .cta-box{background:var(--ink);color:var(--paper);border-radius:8px;padding:clamp(2rem,5vw,3.5rem);text-align:center}
+  .cta-box h2{margin-top:0}
+  .cta-box p{color:#AEBEBB;max-width:34rem;margin:0 auto 2rem}
+  .cta-row{display:flex;flex-wrap:wrap;gap:.75rem;justify-content:center}
+  .cta-box .btn-ghost{color:var(--paper);border-color:#4A5F64}
+  .cta-box .btn-ghost:hover{background:var(--paper);color:var(--ink)}
+
+  /* ---------- footer ---------- */
+  footer{border-top:1px solid var(--rule);padding:2rem 0;font-size:.85rem;color:var(--ink-soft)}
+  .foot{display:flex;flex-wrap:wrap;gap:1rem;justify-content:space-between;align-items:center}
+  .foot a{text-decoration:none}
+  .foot a:hover{color:var(--ink)}
+
+  .reveal{opacity:0;transform:translateY(14px);transition:opacity .55s ease,transform .55s ease}
+  .reveal.in{opacity:1;transform:none}
+
+  @media(prefers-reduced-motion:reduce){
+    *{animation-duration:.001ms !important;transition-duration:.001ms !important}
+    html{scroll-behavior:auto}
+    .mark::before{transform:scaleX(1)}
+    .reveal{opacity:1;transform:none}
+  }
+</style>
+</head>
+<body>
+
+<header>
+  <div class="wrap nav">
+    <a class="wordmark" href="#top">Shortlist<span>.</span></a>
+    <nav class="nav-links">
+      <a href="#services">Services</a>
+      <a href="#process">How it works</a>
+      <a href="#about">About</a>
+      <a class="btn btn-mark" href="#book">Free 15-min review</a>
+    </nav>
+  </div>
+</header>
+
+<main id="top">
+
+  <!-- HERO -->
+  <section class="hero wrap">
+    <div class="hero-grid">
+      <div>
+        <span class="label">Resume · LinkedIn · Interview prep</span>
+        <h1>Your resume gets <span class="mark">eight seconds</span> of attention. <span class="mark m2">Most waste them.</span></h1>
+        <p class="lede">I've spent eight years on the hiring side, screening engineers, IT and cybersecurity professionals for roles across Canada and the US. I know exactly why a resume gets skipped — and I'll show you how to fix yours.</p>
+        <div class="hero-cta">
+          <a class="btn" href="#book">Book a free 15-minute review</a>
+          <a class="btn btn-ghost" href="#services">See what's included</a>
+        </div>
+        <p class="hero-note">48-hour turnaround · Remote across Canada &amp; the US</p>
+      </div>
+
+      <!-- SIGNATURE: the marked-up bullet -->
+      <div class="desk" aria-live="polite">
+        <div class="desk-top">
+          <span class="label">Real resume line, rewritten</span>
+          <span class="label" id="counter">01 / 04</span>
+        </div>
+        <div id="cardBody">
+          <div class="bullet-block">
+            <span class="bullet-tag tag-before">What you wrote</span>
+            <p class="bullet-before" id="before">Responsible for managing the company's cloud infrastructure and ensuring uptime.</p>
+          </div>
+          <div class="bullet-block">
+            <span class="bullet-tag tag-after">What gets you shortlisted</span>
+            <p class="bullet-after" id="after">Managed AWS infrastructure across <em>40+ EC2 instances</em>; cut monthly spend <em>22%</em> by rightsizing and moving batch jobs to spot instances.</p>
+          </div>
+        </div>
+        <div class="desk-foot">
+          <span class="desk-why" id="why">Scope. Number. Outcome.</span>
+          <button class="cycle" id="next" type="button">Next example →</button>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- WHO -->
+  <section class="band">
+    <div class="wrap">
+      <span class="label">Who I work with</span>
+      <h2>People who are good at the job and bad at proving it on paper.</h2>
+      <p class="sec-lede">If you're technical, mid-to-senior level, and applying into the Canadian or US market, you're in the right place.</p>
+      <div class="who-list">
+        <div>
+          <strong>Software &amp; data</strong>
+          <p>Developers, data engineers, DevOps, cloud and platform engineers.</p>
+        </div>
+        <div>
+          <strong>IT &amp; cybersecurity</strong>
+          <p>Network, security, infrastructure and systems specialists.</p>
+        </div>
+        <div>
+          <strong>Engineering &amp; manufacturing</strong>
+          <p>Mechanical, electrical, controls, quality and manufacturing engineers.</p>
+        </div>
+        <div>
+          <strong>Newcomers to Canada</strong>
+          <p>Strong international experience that isn't landing interviews here yet.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- SERVICES -->
+  <section id="services" class="wrap reveal">
+    <span class="label">Services</span>
+    <h2>Three ways to work together.</h2>
+    <p class="sec-lede">Fixed pricing, no hourly surprises. Everything is done by me, not outsourced or run through a template.</p>
+
+    <div class="cards">
+      <div class="card">
+        <h3>Resume Refresh</h3>
+        <div class="price">$200 <small>CAD</small></div>
+        <ul>
+          <li>Full rewrite, targeted to the roles you're actually applying for</li>
+          <li>Formatted to survive applicant tracking systems</li>
+          <li>Achievements rebuilt around scope and results</li>
+          <li>One round of revisions</li>
+        </ul>
+        <a class="btn btn-ghost" href="#book">Start here</a>
+      </div>
+
+      <div class="card featured">
+        <span class="pill">Most popular</span>
+        <h3>Career Kit</h3>
+        <div class="price">$325 <small>CAD</small></div>
+        <ul>
+          <li>Everything in Resume Refresh</li>
+          <li>LinkedIn profile rewrite — headline, About, experience</li>
+          <li>Keyword strategy so recruiters actually find you in search</li>
+          <li>Two rounds of revisions</li>
+        </ul>
+        <a class="btn" href="#book">Book the kit</a>
+      </div>
+
+      <div class="card">
+        <h3>Interview Ready</h3>
+        <div class="price">$475 <small>CAD</small></div>
+        <ul>
+          <li>Everything in Career Kit</li>
+          <li>60-minute mock interview, recorded</li>
+          <li>Written feedback on answers, structure and delivery</li>
+          <li>Salary and offer negotiation guidance</li>
+        </ul>
+        <a class="btn btn-ghost" href="#book">Get interview ready</a>
+      </div>
+    </div>
+
+    <p class="addon"><strong>Coaching on its own:</strong> $125 per hour, or $325 for a block of three sessions. Useful if your resume is fine and the interviews are where things fall apart.</p>
+  </section>
+
+  <!-- PROCESS -->
+  <section id="process" class="wrap reveal">
+    <span class="label">How it works</span>
+    <h2>Four steps, about a week.</h2>
+    <div class="steps">
+      <div class="step">
+        <h4>Free 15-minute review</h4>
+        <p>Send me your current resume. I'll tell you the three things costing you interviews — free, no pitch attached.</p>
+      </div>
+      <div class="step">
+        <h4>Intake call</h4>
+        <p>Thirty minutes to get the detail your resume is missing: scope, numbers, what you actually owned.</p>
+      </div>
+      <div class="step">
+        <h4>Draft in 48 hours</h4>
+        <p>You get the rewrite back within two business days, with notes explaining every change.</p>
+      </div>
+      <div class="step">
+        <h4>Revisions and launch</h4>
+        <p>We tighten it together, then you start applying with a plan for which roles to target first.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ABOUT -->
+  <section id="about" class="wrap reveal">
+    <div class="about-grid">
+      <div>
+        <span class="label">About</span>
+        <h2>Mrunali Bhangale</h2>
+        <dl class="facts">
+          <div><dt>Experience</dt><dd>8+ years recruiting</dd></div>
+          <div><dt>Background</dt><dd>In-house &amp; executive search</dd></div>
+          <div><dt>Focus</dt><dd>Engineering, IT, cybersecurity</dd></div>
+          <div><dt>Markets</dt><dd>Canada &amp; United States</dd></div>
+          <div><dt>Based in</dt><dd>Ontario, Canada</dd></div>
+        </dl>
+      </div>
+      <div class="about-body">
+        <p>I'm not a resume writer who learned recruiting. I'm a recruiter who has read thousands of resumes and decided which ones moved forward.</p>
+        <p>Four of those years were spent in-house at a global technology company, hiring cybersecurity, networking and R&amp;D talent — everything from co-op students to directors. The rest has been in executive search, placing engineering and technical professionals with manufacturers and technology firms across North America.</p>
+        <p>That's the difference. I've sat in the room when hiring managers say why they passed on someone. Usually it isn't skill. It's that the resume never made the case, or the candidate couldn't explain their own work under pressure.</p>
+        <p>I also arrived in Canada as a newcomer myself, so I understand what it's like to have strong experience that suddenly reads as unfamiliar to the people doing the hiring.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- PROOF — replace with real testimonials once you have them -->
+  <section class="wrap reveal">
+    <span class="label">What clients say</span>
+    <h2>Results, in their words.</h2>
+    <p class="sec-lede">Replace the three cards below with real testimonials from your first clients. Keep them specific — outcomes beat adjectives.</p>
+    <div class="quotes">
+      <div class="quote">
+        <p>[Testimonial goes here. Ask for one sentence on the problem and one on the result — for example, how many interviews they got and how quickly.]</p>
+        <cite>First name, job title, city</cite>
+      </div>
+      <div class="quote">
+        <p>[Testimonial goes here.]</p>
+        <cite>First name, job title, city</cite>
+      </div>
+      <div class="quote">
+        <p>[Testimonial goes here.]</p>
+        <cite>First name, job title, city</cite>
+      </div>
+    </div>
+  </section>
+
+  <!-- CTA -->
+  <section id="book" class="wrap reveal">
+    <div class="cta-box">
+      <h2>Send me your resume. I'll tell you what's wrong with it.</h2>
+      <p>Fifteen minutes, no cost, no obligation to book anything. Worst case you leave with three specific fixes you can make yourself.</p>
+      <div class="cta-row">
+        <a class="btn btn-mark" href="REPLACE-WITH-YOUR-CALENDLY-LINK">Book the free review</a>
+        <a class="btn btn-ghost" href="mailto:REPLACE@YOUREMAIL.COM">Email me instead</a>
+        <a class="btn btn-ghost" href="REPLACE-WITH-YOUR-LINKEDIN-URL">Message me on LinkedIn</a>
+      </div>
+    </div>
+  </section>
+
+</main>
+
+<footer>
+  <div class="wrap foot">
+    <span>© 2026 Shortlist · Mrunali Bhangale · Ontario, Canada</span>
+    <span><a href="mailto:REPLACE@YOUREMAIL.COM">REPLACE@YOUREMAIL.COM</a></span>
+  </div>
+</footer>
+
+<script>
+  const examples = [
+    {
+      before: "Responsible for managing the company's cloud infrastructure and ensuring uptime.",
+      after: "Managed AWS infrastructure across <em>40+ EC2 instances</em>; cut monthly spend <em>22%</em> by rightsizing and moving batch jobs to spot instances.",
+      why: "Scope. Number. Outcome."
+    },
+    {
+      before: "Worked with the security team on various projects to improve the security posture.",
+      after: "Led MFA rollout to <em>1,200 employees</em> in six weeks; phishing incidents fell from <em>14 per quarter to 2</em>.",
+      why: "Ownership, not participation."
+    },
+    {
+      before: "Helped develop new features for the product using React and Node.js.",
+      after: "Shipped nine features to a React/Node platform serving <em>60k monthly users</em>; owned the checkout rewrite that lifted conversion <em>8%</em>.",
+      why: "Users and revenue, not tools."
+    },
+    {
+      before: "Experienced mechanical engineer with strong knowledge of design and manufacturing.",
+      after: "Designed <em>30+ sheet-metal assemblies</em> in SolidWorks for a <em>200-unit/month</em> line; cut part count <em>18%</em> through redesign.",
+      why: "Evidence beats adjectives."
+    }
+  ];
+
+  let i = 0;
+  const before = document.getElementById('before');
+  const after = document.getElementById('after');
+  const why = document.getElementById('why');
+  const counter = document.getElementById('counter');
+  const body = document.getElementById('cardBody');
+
+  document.getElementById('next').addEventListener('click', () => {
+    i = (i + 1) % examples.length;
+    before.textContent = examples[i].before;
+    after.innerHTML = examples[i].after;
+    why.textContent = examples[i].why;
+    counter.textContent = String(i + 1).padStart(2, '0') + ' / ' + String(examples.length).padStart(2, '0');
+    body.classList.remove('fade');
+    void body.offsetWidth;
+    body.classList.add('fade');
+  });
+
+  const io = new IntersectionObserver((entries) => {
+    entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('in'); io.unobserve(e.target); } });
+  }, { threshold: 0.12 });
+  document.querySelectorAll('.reveal').forEach(el => io.observe(el));
+</script>
+</body>
+</html>
